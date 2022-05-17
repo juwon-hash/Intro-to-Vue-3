@@ -11,9 +11,39 @@
   <body>
     <div id="app">
       <h1>Product goes here</h1>
+      <h1>{{ product }}</h1>
+      <div class="product-image">
+        <!-- image goes here -->
+        <img v-bind:src="image">
+        <!-- <img :src="image"> -->
+      </div>
+      <div>
+        <p v-if="inStock">In Stock</p>
+        <p v-else>Out of Stock</p>
+        <p v-show="inStock">In Stock show</p> <!-- display none -->
+        <p v-if="inventory > 10">In Stock inventory</p>
+        <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out! inventory</p>
+        <p v-else>Out of Stock inventory</p>
+      </div>
+      <div>
+        <ul>
+          <li v-for="detail in details">{{detail}}</li>
+        </ul>
+        <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">{{ variant.color }}</div>
+      </div>
+      <div>
+        <div class="cart"> Cart({{ cart }})</div>
+        <button class="button" v-on:click="addToCart">Add to Cart</button>
+        <button class="button" @click="addToCart">@ Add to Cart</button>
+      </div>
     </div>
 
     <!-- Import Js -->
     <script src="./main.js"></script>
+
+    <!-- Mount App -->
+    <script>
+      const mountedApp = app.mount('#app')
+    </script>
   </body>
 </html>
